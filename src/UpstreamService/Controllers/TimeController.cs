@@ -7,6 +7,6 @@ namespace UpstreamService.Controllers
     public class TimeController : ControllerBase
     {
         [HttpGet("now")]
-        public ActionResult<string> TimeNow() => DateTime.UtcNow.ToString();
+        public ActionResult<string> TimeNow() => DateTimeOffset.UtcNow.ToString();
     }
 }
