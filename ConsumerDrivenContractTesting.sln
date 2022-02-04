@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsumerService", "src\Cons
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{D85ED9F9-933B-4B39-80DA-4A284D9FA530}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsumerService.Contracts", "test\ConsumerService.Contracts\ConsumerService.Contracts.csproj", "{83356AA4-7287-4C35-BB7C-D7503617374A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsumerService.Contracts", "test\ConsumerService.Contracts\ConsumerService.Contracts.csproj", "{83356AA4-7287-4C35-BB7C-D7503617374A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpstreamService.Contracts", "test\UpstreamService.Contracts\UpstreamService.Contracts.csproj", "{4BCDE21A-773F-4554-9247-71FEB04A00B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +33,10 @@ Global
 		{83356AA4-7287-4C35-BB7C-D7503617374A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{83356AA4-7287-4C35-BB7C-D7503617374A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{83356AA4-7287-4C35-BB7C-D7503617374A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BCDE21A-773F-4554-9247-71FEB04A00B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BCDE21A-773F-4554-9247-71FEB04A00B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BCDE21A-773F-4554-9247-71FEB04A00B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BCDE21A-773F-4554-9247-71FEB04A00B3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -39,6 +45,7 @@ Global
 		{3EBCC845-32C6-420A-BC0F-1BCD6CEAA92F} = {D40BD999-D792-4402-97B5-9F685743E8F2}
 		{CCCA77E2-60E5-4256-8D3D-ECE8818E56B2} = {D40BD999-D792-4402-97B5-9F685743E8F2}
 		{83356AA4-7287-4C35-BB7C-D7503617374A} = {D85ED9F9-933B-4B39-80DA-4A284D9FA530}
+		{4BCDE21A-773F-4554-9247-71FEB04A00B3} = {D85ED9F9-933B-4B39-80DA-4A284D9FA530}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3F5F40C3-E49F-4E6C-921D-51D43693B365}
