@@ -22,16 +22,16 @@
   </ItemGroup>
 
   <ItemGroup Condition="$([MSBuild]::IsOsPlatform('Windows'))">
-    <PackageReference Include="PactNet.Windows" Version="3.0.1" />
+    <PackageReference Include="PactNet.Windows" Version="3.0.2" />
   </ItemGroup>
   <ItemGroup Condition="$([MSBuild]::IsOsPlatform('OSX'))">
-    <PackageReference Include="PactNet.OSX" Version="3.0.1" />
+    <PackageReference Include="PactNet.OSX" Version="3.0.2" />
   </ItemGroup>
   <ItemGroup Condition="$([MSBuild]::IsOsPlatform('Linux')) and '$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture)' == 'X86'">
-    <PackageReference Include="PactNet.Linux.x86" Version="3.0.1" />
+    <PackageReference Include="PactNet.Linux.x86" Version="3.0.2" />
   </ItemGroup>
   <ItemGroup Condition="$([MSBuild]::IsOsPlatform('Linux')) and '$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture)' == 'X64'">
-	  <PackageReference Include="PactNet.Linux.x64" Version="3.0.1" />
+	  <PackageReference Include="PactNet.Linux.x64" Version="3.0.2" />
   </ItemGroup>
 
 </Project>
