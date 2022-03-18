@@ -1,5 +1,10 @@
 ﻿using System;
+using System.IO;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.TestHost;
+using Microsoft.Extensions.DependencyInjection;
 using Wow.Pact.Provider;
 using Xunit;
 using Xunit.Abstractions;
@@ -15,7 +20,7 @@ namespace UpstreamService.Contracts
             _pactVerifier = new WowPactVerifier(Options, output);
         }
 
-        private static WowPactVerifierOptions Options => new WowPactVerifierOptions()
+        private static WowPactVerifierOptions Options => new()
         {
             ProviderName = "ConsumerDrivenContractTesting.UpstreamService",
             ProviderUri = "http://localhost:5288",
@@ -25,26 +30,43 @@ namespace UpstreamService.Contracts
         [Fact]
         public async Task VerifyConsumerDrivenContracts()
         {
-            if (TestTriggeredByWebhook(out var pactUri, out var consumerName))
+            var pathToLocalConsumerPact = Path.Join(
+                "..",
+                "..",
+                "..",
+                "..",
+                "ConsumerService.Contracts",
+                "bin",
+                "Debug",
+                "net6.0",
+                "pacts",
+                "consumerdrivencontracttesting.consumerservice-consumerdrivencontracttesting.upstreamservice.json");
+
+            // Workaround for issue with PactNet lib (https://github.com/pact-foundation/pact-net/issues/330)
+            Environment.SetEnvironmentVariable("PACT_DISABLE_SSL_VERIFICATION", "true");
+
+            await RunAsync(() => _pactVerifier.VerifyContract("ConsumerService", pathToLocalConsumerPact));
+        }
+
+        private static async Task RunAsync(Func<Task> task)
+        {
+            using var host = BuildMockProvider();
+            await host.StartAsync();
+            await task();
+            await host.StopAsync();
+        }
+
+        private static IWebHost BuildMockProvider() => WebHost.CreateDefaultBuilder()
+            .UseUrls(Options.ProviderUri)
+            .UseStartup<Startup>()
+            .ConfigureTestServices(services =>
             {
-            }
-        }
-
-        private static bool TestTriggeredByWebhook(out string pactUri, out string consumerName)
-        {
-            consumerName = default;
-
-            return EnvironmentVariableDefined("PACTBROKER_PACT_URI", out pactUri) &&
-                EnvironmentVariableDefined("PACTBROKER_CONSUMER_NAME", out consumerName);
-        }
-
-        private static bool EnvironmentVariableDefined(
-            string environmentVariableName,
-            out string environmentVariableValue)
-        {
-            environmentVariableValue = Environment.GetEnvironmentVariable(environmentVariableName) ?? "";
-
-            return !string.IsNullOrEmpty(environmentVariableValue);
-        }
+                services.AddSingleton(new ProviderStatesContainer(config =>
+                {
+                    config.Add("", () => { });
+                }));
+                services.AddSingleton<IStartupFilter, ProviderStatesStartupFilter>();
+            })
+            .Build();
     }
 }

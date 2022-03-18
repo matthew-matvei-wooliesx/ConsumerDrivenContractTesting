@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using PactNet.Matchers;
 using PactNet.Mocks.MockHttpService;
 using PactNet.Mocks.MockHttpService.Models;
 using Xunit;
@@ -36,9 +37,9 @@ namespace ConsumerService.Contracts
                     Status = 200,
                     Headers = new Dictionary<string, object>
                     {
-                        {"Content-Type", "text/plain" }
+                        {"Content-Type", "text/plain; charset=utf-8" }
                     },
-                    Body = DateTimeOffset.UtcNow.ToString()
+                    Body = Match.Regex(DateTimeOffset.UtcNow.ToString(), @"^(?!\s*$).+")
                 });
 
             // Act
