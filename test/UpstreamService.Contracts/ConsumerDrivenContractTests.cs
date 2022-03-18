@@ -42,9 +42,6 @@ namespace UpstreamService.Contracts
                 "pacts",
                 "consumerdrivencontracttesting.consumerservice-consumerdrivencontracttesting.upstreamservice.json");
 
-            // Workaround for issue with PactNet lib (https://github.com/pact-foundation/pact-net/issues/330)
-            Environment.SetEnvironmentVariable("PACT_DISABLE_SSL_VERIFICATION", "true");
-
             await RunAsync(() => _pactVerifier.VerifyContract("ConsumerService", pathToLocalConsumerPact));
         }
 
